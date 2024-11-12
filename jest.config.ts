@@ -9,9 +9,10 @@ const config: Config = {
     coverageProvider: "v8",
     testEnvironment: "jsdom",
     collectCoverageFrom: [
-        "**/*.{js,jsx,ts,tsx}",
-        "!**/*.d.ts",
+        "src/**/*.{js,jsx,ts,tsx}",
+        "!src/**/*.d.ts",
         "!**/node_modules/**",
+        "!**/.next/**",
     ],
     moduleNameMapper: {
         // Handle CSS imports (with CSS modules)
@@ -22,9 +23,13 @@ const config: Config = {
         "^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$":
             "<rootDir>/__mocks__/fileMock.js",
         "^@/(.*)$": "<rootDir>/src/$1",
-        "^@/app/(.*)$": "<rootDir>/src/app/$1",
     },
-    testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/.next/"],
+    testPathIgnorePatterns: [
+        "<rootDir>/node_modules/",
+        "<rootDir>/.next/",
+        "<rootDir>/tests/",
+        "<rootDir>/tests-examples/",
+    ],
     transform: {
         // Use babel-jest to transpile tests with the next/babel preset
         "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest", { presets: ["next/babel"] }],
@@ -34,6 +39,7 @@ const config: Config = {
         "^.+\\.module\\.(css|sass|scss)$",
     ],
     setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+    coverageDirectory: "coverage",
 };
 
 export default createJestConfig(config);
