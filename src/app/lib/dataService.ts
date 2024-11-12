@@ -1,5 +1,5 @@
-import articles from "../../mocks/articles.json";
-import baking from "../../mocks/burgerSteps.json";
+import articles from "@/mocks/articles.json";
+import baking from "@/mocks/burgerSteps.json";
 export const getMock = {
     articles,
     baking,

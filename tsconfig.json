@@ -18,9 +18,8 @@
                 "name": "next"
             }
         ],
-        "baseUrl": "src/",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./src/*"]
         }
     },
     "include": [
@@ -28,7 +27,7 @@
         "**/*.ts",
         "**/*.tsx",
         ".next/types/**/*.ts",
-        "src/app/lib/apolloClient.js"
+        "src/app/lib/apolloClient.ts"
     ],
     "exclude": ["node_modules"]
 }
