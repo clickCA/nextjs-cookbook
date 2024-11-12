@@ -1,0 +1,7 @@
+/* src/components/atoms/ErrorText/styles.module.css */
+.error {
+    color: var(--color-error, #ff0a0a);
+    font-size: 0.875rem;
+    margin-top: var(--spacing-unit);
+    display: block;
+}

@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import createApolloClient from "./lib/apolloClient";
 import styles from "./styles/Home.module.css";
+import { NextPage } from "next";
 
 interface Country {
     code: string;
@@ -18,7 +19,7 @@ const GET_COUNTRIES = gql`
     }
 `;
 
-const Home = async () => {
+const Home: NextPage = async () => {
     const client = createApolloClient();
     const { data } = await client.query({
         query: GET_COUNTRIES,
