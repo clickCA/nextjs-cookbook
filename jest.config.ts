@@ -38,7 +38,7 @@ const config: Config = {
         "/node_modules/",
         "^.+\\.module\\.(css|sass|scss)$",
     ],
-    setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+    setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
     coverageDirectory: "coverage",
 };
 
