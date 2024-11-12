@@ -1,0 +1,15 @@
+{
+    "id": "breakfast_burger",
+    "title": "Breakfast burger",
+    "author": "John Wick",
+    "burger": "hamburger",
+    "content": "...",
+    "category": {
+        "title": "Breakfast food",
+        "url": "/categories/breakfast"
+    },
+    "image": "shorturl.at/hluI0",
+    "createdAt": "2022-05-01",
+    "allowComments": true,
+    "status": "public"
+}
