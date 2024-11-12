@@ -1,9 +1,19 @@
 import articles from "@/mocks/articles.json";
 import baking from "@/mocks/burgerSteps.json";
+import users from "@/mocks/users.json";
 export const getMock = {
     articles,
     baking,
+    users,
 };
+
+export interface IUser {
+    state: boolean;
+    token: string;
+}
+export interface ILoginStrategy {
+    login(user: string, password: string): IUser;
+}
 
 export interface ICategory {
     title: string;
