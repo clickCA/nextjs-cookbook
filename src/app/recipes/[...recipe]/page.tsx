@@ -24,7 +24,7 @@ const Recipe = ({ initialData }: RecipeProps) => {
     useEffect(() => {
         // Init some default value
         router.push(link + "?comment_page=" + default_comment_pages_value);
-    }, []);
+    }, [default_comment_pages_value, link, router]);
 
     useEffect(() => {
         console.log(comment_page, initialData);
