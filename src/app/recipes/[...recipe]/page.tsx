@@ -47,9 +47,9 @@ const Recipe = ({ initialData }: RecipeProps) => {
             <button
                 onClick={() =>
                     router.push(
-                        link + "?comment_page=" + nextPageNumber(comment_page),
-                        undefined,
-                        { shallow: true }
+                        link +
+                            "?comment_page=" +
+                            nextPageNumber(comment_page ?? "0")
                     )
                 }
             >
