@@ -1,5 +1,6 @@
 import { IUser } from "@/app/lib/dataService";
 import { LoginContext } from "./loginStrategy";
+import { LoginWithMock } from "./loginMock";
 
 export class LoginService {
     private static instance: LoginService;
@@ -19,6 +20,7 @@ export class LoginService {
 
     async login(user: string, password: string) {
         // Here we will provide the login logic depending on what strategy is selected
+        const loginType = new LoginWithMock();
         const loginContext = new LoginContext(loginType);
 
         this.loginState = await loginContext.useLogin(user, password);
