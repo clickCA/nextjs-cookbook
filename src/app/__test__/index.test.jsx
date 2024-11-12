@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import Home from "@/app/page";
 
 // Mock Apollo Client
-jest.mock("../lib/apolloClient", () => ({
+jest.mock("@/app/lib/apolloClient", () => ({
     __esModule: true,
     default: () => ({
         query: jest.fn().mockResolvedValue({
