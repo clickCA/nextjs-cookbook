@@ -3,33 +3,30 @@
 
 import { useState, FormEvent } from "react";
 import styles from "./auth.module.css";
-
+import { gql } from "@apollo/client";
+import createApolloClient from "@/app/lib/apolloClient";
 interface FormState {
-    username: string;
+    email: string;
     password: string;
     isLoading: boolean;
 }
 
 interface FormErrors {
-    username?: string;
+    email?: string;
     password?: string;
 }
 
 const AuthPage = () => {
     const [formData, setFormData] = useState<FormState>({
-        username: "",
+        email: "",
         password: "",
         isLoading: false,
     });
     const [errors, setErrors] = useState<FormErrors>({});
 
-    const validateUsername = (username: string): string | undefined => {
-        if (username.length < 3)
-            return "Username must be at least 3 characters";
-        if (username.length > 100)
-            return "Username must be less than 100 characters";
-        if (!/^[a-zA-Z]+$/.test(username))
-            return "Username must contain only English letters";
+    const validateEmail = (email: string): string | undefined => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) return "Invalid email address";
         return undefined;
     };
 
@@ -50,6 +47,35 @@ const AuthPage = () => {
         // Add API call here
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
+        const LOGIN_MUTATION = gql`
+            mutation Login($email: String!, $password: String!) {
+                login(email: $email, password: $password) {
+                    _id
+                    email
+                    accessToken
+                    refreshToken
+                }
+            }
+        `;
+
+        const client = createApolloClient();
+
+        const { data, errors: mutationErrors } = await client.mutate({
+            mutation: LOGIN_MUTATION,
+            variables: {
+                email: formData.email,
+                password: formData.password,
+            },
+        });
+
+        if (mutationErrors) {
+            setErrors((prev) => ({
+                ...prev,
+                email: mutationErrors.message,
+            }));
+        } else {
+            console.log("Login successful:", data);
+        }
         setFormData((prev) => ({ ...prev, isLoading: false }));
     };
 
@@ -58,26 +84,22 @@ const AuthPage = () => {
             <form className={styles.form} onSubmit={handleSubmit}>
                 <input
                     className={styles.input}
-                    type="text"
-                    placeholder="Username"
-                    value={formData.username}
+                    type="email"
+                    placeholder="Email"
+                    value={formData.email}
                     onChange={(e) => {
-                        const sanitized = e.target.value.replace(
-                            /[^a-zA-Z]/g,
-                            ""
-                        );
                         setFormData((prev) => ({
                             ...prev,
-                            username: sanitized,
+                            email: e.target.value,
                         }));
                     }}
                     onBlur={() => {
-                        const error = validateUsername(formData.username);
-                        setErrors((prev) => ({ ...prev, username: error }));
+                        const error = validateEmail(formData.email);
+                        setErrors((prev) => ({ ...prev, email: error }));
                     }}
                 />
-                {errors.username && (
-                    <span className={styles.error}>{errors.username}</span>
+                {errors.email && (
+                    <span className={styles.error}>{errors.email}</span>
                 )}
 
                 <input

@@ -1,7 +1,10 @@
+"use client";
 import { gql } from "@apollo/client";
 import createApolloClient from "./lib/apolloClient";
 import styles from "./styles/Home.module.css";
 import { NextPage } from "next";
+import { NextWebVitalsMetric } from "next/app";
+import { useReportWebVitals } from "next/web-vitals";
 
 interface Country {
     code: string;
@@ -19,23 +22,25 @@ const GET_COUNTRIES = gql`
     }
 `;
 
-const Home: NextPage = async () => {
-    const client = createApolloClient();
-    const { data } = await client.query({
-        query: GET_COUNTRIES,
+const Home: NextPage = () => {
+    // const client = createApolloClient();
+    // const { data } = await client.query({
+    //     query: GET_COUNTRIES,
+    // });
+
+    // const countries: Country[] = data.countries.slice(0, 4);
+    useReportWebVitals((metric) => {
+        console.log(metric);
     });
-
-    const countries: Country[] = data.countries.slice(0, 4);
-
     return (
         <div className={styles.container}>
             <h1 role="heading">Countries</h1>
             <ul>
-                {countries.map((country) => (
+                {/* {countries.map((country) => (
                     <li key={country.code}>
                         {country.name} {country.emoji}
                     </li>
-                ))}
+                ))} */}
             </ul>
         </div>
     );
